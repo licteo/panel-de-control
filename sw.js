@@ -1,9 +1,11 @@
-const CACHE_NAME = 'panel-apps-v1';
+const CACHE_NAME = 'panel-apps-v2';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/styles.css',
-  '/script.js',
+  './',
+  './index.html',
+  './styles.css',
+  './script.js',
+  './pwa-config.js',
+  './manifest.json',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/webfonts/fa-solid-900.woff2'
 ];
@@ -17,6 +19,8 @@ self.addEventListener('install', (event) => {
         return cache.addAll(urlsToCache);
       })
   );
+  // Forzar la activación inmediata
+  self.skipWaiting();
 });
 
 // Activación del Service Worker
@@ -31,12 +35,20 @@ self.addEventListener('activate', (event) => {
           }
         })
       );
+    }).then(() => {
+      // Tomar control de todas las páginas inmediatamente
+      return self.clients.claim();
     })
   );
 });
 
 // Interceptar peticiones
 self.addEventListener('fetch', (event) => {
+  // Manejar solo peticiones GET
+  if (event.request.method !== 'GET') {
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request)
       .then((response) => {
@@ -66,8 +78,11 @@ self.addEventListener('fetch', (event) => {
           .catch(() => {
             // Si falla la red, devolver una página offline
             if (event.request.destination === 'document') {
-              return caches.match('/index.html');
+              return caches.match('./index.html');
             }
+            
+            // Para otros recursos, intentar devolver desde cache
+            return caches.match(event.request);
           });
       })
   );
