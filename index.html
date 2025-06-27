@@ -52,6 +52,11 @@
     </section>
     <section id="program-detail" class="hidden">
       <button id="back-btn">&larr; Volver</button>
+      <div id="backup-restore-bar" style="margin-bottom: 1rem; display: flex; gap: 0.5rem;">
+        <button id="backup-btn">Respaldar datos</button>
+        <button id="restore-btn">Restaurar datos</button>
+        <input type="file" id="restore-file" accept="application/json" style="display:none;" />
+      </div>
       <h2 id="program-title"></h2>
       <div id="quill-notes-toolbar"></div>
       <div id="program-notes" style="height: 180px;"></div>

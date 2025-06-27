@@ -343,4 +343,52 @@ if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('service-worker.js');
   });
+}
+
+// --- Funcionalidad de respaldo y restauración ---
+const backupBtn = document.getElementById('backup-btn');
+const restoreBtn = document.getElementById('restore-btn');
+const restoreFile = document.getElementById('restore-file');
+
+if (backupBtn) {
+  backupBtn.onclick = function() {
+    const datos = {};
+    for (let i = 0; i < localStorage.length; i++) {
+      const clave = localStorage.key(i);
+      if (clave.startsWith('notas_') || clave.startsWith('actividades_')) {
+        datos[clave] = localStorage.getItem(clave);
+      }
+    }
+    const blob = new Blob([JSON.stringify(datos, null, 2)], {type: 'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'respaldo_programas_mentales.json';
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+}
+
+if (restoreBtn && restoreFile) {
+  restoreBtn.onclick = function() {
+    restoreFile.value = '';
+    restoreFile.click();
+  };
+  restoreFile.onchange = function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(evt) {
+      try {
+        const datos = JSON.parse(evt.target.result);
+        for (const clave in datos) {
+          localStorage.setItem(clave, datos[clave]);
+        }
+        alert('¡Datos restaurados! Recarga la página para ver los cambios.');
+      } catch (err) {
+        alert('Error al restaurar los datos: ' + err.message);
+      }
+    };
+    reader.readAsText(file);
+  };
 } 
