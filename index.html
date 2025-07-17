@@ -1,67 +1,193 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Programas Mentales</title>
-  <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="icon" href="icon.png">
-  <script src="https://kit.fontawesome.com/4b8b59b5b2.js" crossorigin="anonymous"></script>
-  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-  <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#4f46e5">
+    <meta name="description" content="Panel de aplicaciones personalizable para organizar tus herramientas favoritas">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Panel de Apps">
+    <meta name="mobile-web-app-capable" content="yes">
+    
+    <!-- Iconos para PWA -->
+    <link rel="icon" type="image/png" sizes="32x32" href="admin-panel.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="admin-panel.png">
+    <link rel="apple-touch-icon" href="admin-panel.png">
+    <link rel="manifest" href="manifest.json">
+    
+    <title>Panel de Aplicaciones</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-  <header>
-    <h1>Programas Mentales</h1>
-  </header>
-  <main id="main-content">
-    <section class="programs-grid">
-      <div class="program-card espiritual" data-programa="espiritual">
-        <i class="fas fa-star"></i>
-        <span>Programa Espiritual</span>
-      </div>
-      <div class="program-card cuerpo" data-programa="cuerpo">
-        <i class="fas fa-heartbeat"></i>
-        <span>Programa Cuerpo</span>
-      </div>
-      <div class="program-card familia" data-programa="familia">
-        <i class="fas fa-users"></i>
-        <span>Programa Familia</span>
-      </div>
-      <div class="program-card trabajo" data-programa="trabajo">
-        <i class="fas fa-briefcase"></i>
-        <span>Programa Trabajo</span>
-      </div>
-      <div class="program-card estudio" data-programa="estudio">
-        <i class="fas fa-book"></i>
-        <span>Programa Estudio</span>
-      </div>
-      <div class="program-card recreacion" data-programa="recreacion">
-        <i class="fas fa-futbol"></i>
-        <span>Programa Recreación</span>
-      </div>
-      <div class="program-card casa" data-programa="casa">
-        <i class="fas fa-home"></i>
-        <span>Programa Casa</span>
-      </div>
-      <div class="program-card social" data-programa="social">
-        <i class="fas fa-comments"></i>
-        <span>Programa Social</span>
-      </div>
-    </section>
-    <section id="program-detail" class="hidden">
-      <button id="back-btn">&larr; Volver</button>
-      <div id="backup-restore-bar" style="margin-bottom: 1rem; display: flex; gap: 0.5rem;">
-        <button id="backup-btn">Respaldar datos</button>
-        <button id="restore-btn">Restaurar datos</button>
-        <input type="file" id="restore-file" accept="application/json" style="display:none;" />
-      </div>
-      <h2 id="program-title"></h2>
-      <div id="quill-notes-toolbar"></div>
-      <div id="program-notes" style="height: 180px;"></div>
-    </section>
-  </main>
-  <script src="main.js"></script>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1><i class="fas fa-th-large"></i> <span class="header-title">Panel de Apps</span></h1>
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="Buscar aplicaciones...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-secondary" id="addAppBtn">
+                        <i class="fas fa-plus"></i> <span class="btn-text">Agregar</span>
+                    </button>
+                    <button class="btn btn-primary" id="settingsBtn">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Categories -->
+        <nav class="categories">
+            <div class="categories-container">
+                <button class="category-btn active" data-category="all">
+                    <i class="fas fa-th"></i> <span>Todas</span>
+                </button>
+                <button class="category-btn" data-category="productivity">
+                    <i class="fas fa-briefcase"></i> <span>Productividad</span>
+                </button>
+                <button class="category-btn" data-category="social">
+                    <i class="fas fa-users"></i> <span>Social</span>
+                </button>
+                <button class="category-btn" data-category="entertainment">
+                    <i class="fas fa-gamepad"></i> <span>Entretenimiento</span>
+                </button>
+                <button class="category-btn" data-category="tools">
+                    <i class="fas fa-tools"></i> <span>Herramientas</span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Apps Grid -->
+        <main class="apps-container">
+            <div class="apps-grid" id="appsGrid">
+                <!-- Las aplicaciones se cargarán dinámicamente -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal para agregar/editar aplicaciones -->
+    <div class="modal" id="appModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Agregar Nueva Aplicación</h2>
+                <button class="close-btn" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="appForm">
+                <div class="form-group">
+                    <label for="appName">Nombre de la aplicación:</label>
+                    <input type="text" id="appName" required>
+                </div>
+                <div class="form-group">
+                    <label for="appUrl">URL:</label>
+                    <input type="url" id="appUrl" required>
+                </div>
+                <div class="form-group">
+                    <label for="appIcon">Icono (clase FontAwesome):</label>
+                    <input type="text" id="appIcon" placeholder="fas fa-chrome" required>
+                </div>
+                <div class="form-group">
+                    <label for="appCategory">Categoría:</label>
+                    <select id="appCategory" required>
+                        <option value="productivity">Productividad</option>
+                        <option value="social">Social</option>
+                        <option value="entertainment">Entretenimiento</option>
+                        <option value="tools">Herramientas</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="appDescription">Descripción:</label>
+                    <textarea id="appDescription" rows="3"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelBtn">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de configuración -->
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Configuración</h2>
+                <button class="close-btn" id="closeSettingsModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="settings-content">
+                <div class="setting-group">
+                    <h3>Apariencia</h3>
+                    <div class="setting-item">
+                        <label for="themeSelect">Tema:</label>
+                        <select id="themeSelect">
+                            <option value="light">Claro</option>
+                            <option value="dark">Oscuro</option>
+                            <option value="auto">Automático</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <label for="gridSize">Tamaño de cuadrícula:</label>
+                        <select id="gridSize">
+                            <option value="small">Pequeño</option>
+                            <option value="medium" selected>Mediano</option>
+                            <option value="large">Grande</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="setting-group">
+                    <h3>Datos</h3>
+                    <div class="settings-buttons">
+                        <button class="btn btn-secondary" id="exportData">
+                            <i class="fas fa-download"></i> Exportar Datos
+                        </button>
+                        <button class="btn btn-secondary" id="importData">
+                            <i class="fas fa-upload"></i> Importar Datos
+                        </button>
+                        <button class="btn btn-danger" id="clearData">
+                            <i class="fas fa-trash"></i> Limpiar Datos
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Input oculto para importar archivos -->
+    <input type="file" id="fileInput" accept=".json" style="display: none;">
+
+    <script src="script.js"></script>
+    <script src="pwa-config.js"></script>
+    <script>
+        // Registrar Service Worker para PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then((registration) => {
+                        console.log('SW registrado: ', registration);
+                    })
+                    .catch((registrationError) => {
+                        console.log('SW registro falló: ', registrationError);
+                    });
+            });
+        }
+
+        // Detectar si la app puede ser instalada
+        window.addEventListener('beforeinstallprompt', (e) => {
+            console.log('App puede ser instalada');
+        });
+
+        // Detectar cuando la app se instala
+        window.addEventListener('appinstalled', (evt) => {
+            console.log('App instalada');
+        });
+    </script>
 </body>
 </html> 

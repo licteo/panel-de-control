@@ -347,45 +347,82 @@ class AppPanel {
         if (saved) {
             return JSON.parse(saved);
         }
-        
-        // Aplicaciones por defecto
+        // Aplicaciones por defecto (sin duplicados)
         return [
-            {
-                id: '1',
-                name: 'Google',
-                url: 'https://www.google.com',
-                icon: 'fab fa-google',
-                category: 'tools',
-                description: 'Motor de búsqueda',
-                createdAt: new Date().toISOString()
-            },
-            {
-                id: '2',
-                name: 'YouTube',
-                url: 'https://www.youtube.com',
-                icon: 'fab fa-youtube',
-                category: 'entertainment',
-                description: 'Plataforma de videos',
-                createdAt: new Date().toISOString()
-            },
-            {
-                id: '3',
-                name: 'GitHub',
-                url: 'https://github.com',
-                icon: 'fab fa-github',
-                category: 'productivity',
-                description: 'Plataforma de desarrollo',
-                createdAt: new Date().toISOString()
-            },
-            {
-                id: '4',
-                name: 'LinkedIn',
-                url: 'https://www.linkedin.com',
-                icon: 'fab fa-linkedin',
-                category: 'social',
-                description: 'Red social profesional',
-                createdAt: new Date().toISOString()
-            }
+            // Google y utilidades principales
+            { id: '1', name: 'Google', url: 'https://www.google.com', icon: 'fab fa-google', category: 'tools', description: 'Motor de búsqueda', createdAt: new Date().toISOString() },
+            { id: '2', name: 'YouTube', url: 'https://www.youtube.com', icon: 'fab fa-youtube', category: 'entertainment', description: 'Plataforma de videos', createdAt: new Date().toISOString() },
+            { id: '3', name: 'Gmail', url: 'https://mail.google.com/', icon: 'fas fa-envelope', category: 'productivity', description: 'Correo electrónico de Google', createdAt: new Date().toISOString() },
+            { id: '4', name: 'Google Drive', url: 'https://drive.google.com/drive/my-drive', icon: 'fab fa-google-drive', category: 'productivity', description: 'Tu almacenamiento en la nube', createdAt: new Date().toISOString() },
+            { id: '5', name: 'Google Calendar', url: 'https://calendar.google.com/calendar', icon: 'fas fa-calendar-alt', category: 'productivity', description: 'Calendario de Google', createdAt: new Date().toISOString() },
+            { id: '6', name: 'Google Maps', url: 'https://maps.google.com/', icon: 'fas fa-map-marked-alt', category: 'tools', description: 'Mapas de Google', createdAt: new Date().toISOString() },
+            { id: '7', name: 'Google Photos', url: 'https://photos.google.com/', icon: 'fas fa-camera-retro', category: 'productivity', description: 'Tus fotos en la nube', createdAt: new Date().toISOString() },
+            { id: '8', name: 'Google News', url: 'https://news.google.com/', icon: 'fas fa-newspaper', category: 'productivity', description: 'Noticias de Google', createdAt: new Date().toISOString() },
+            { id: '9', name: 'Google Meet', url: 'https://meet.google.com/', icon: 'fas fa-video', category: 'productivity', description: 'Videollamadas de Google', createdAt: new Date().toISOString() },
+            { id: '10', name: 'Google Translate', url: 'https://translate.google.com/', icon: 'fas fa-language', category: 'tools', description: 'Traductor de Google', createdAt: new Date().toISOString() },
+            { id: '11', name: 'Google Sheets', url: 'https://docs.google.com/spreadsheets/', icon: 'fas fa-table', category: 'productivity', description: 'Hojas de cálculo', createdAt: new Date().toISOString() },
+            { id: '12', name: 'Google Docs', url: 'https://docs.google.com/document/', icon: 'fas fa-file-alt', category: 'productivity', description: 'Documentos de Google', createdAt: new Date().toISOString() },
+            { id: '13', name: 'Google Slides', url: 'https://docs.google.com/presentation/', icon: 'fas fa-chalkboard', category: 'productivity', description: 'Presentaciones de Google', createdAt: new Date().toISOString() },
+            { id: '14', name: 'Google One', url: 'https://one.google.com/', icon: 'fas fa-cloud', category: 'tools', description: 'Almacenamiento y servicios Google', createdAt: new Date().toISOString() },
+            { id: '15', name: 'Google Finance', url: 'https://www.google.com/finance', icon: 'fas fa-chart-line', category: 'tools', description: 'Finanzas y bolsa', createdAt: new Date().toISOString() },
+            { id: '16', name: 'Google Play', url: 'https://play.google.com/', icon: 'fab fa-google-play', category: 'entertainment', description: 'Tienda de apps y juegos', createdAt: new Date().toISOString() },
+            { id: '17', name: 'Google Keep', url: 'https://keep.google.com/', icon: 'fas fa-sticky-note', category: 'productivity', description: 'Notas rápidas', createdAt: new Date().toISOString() },
+            { id: '18', name: 'Google My Ad Center', url: 'https://myadcenter.google.com/', icon: 'fas fa-bullhorn', category: 'tools', description: 'Centro de anuncios', createdAt: new Date().toISOString() },
+            { id: '19', name: 'Google Classroom', url: 'https://classroom.google.com/', icon: 'fas fa-chalkboard-teacher', category: 'productivity', description: 'Aula virtual', createdAt: new Date().toISOString() },
+            { id: '20', name: 'Google Earth', url: 'https://earth.google.com/web/', icon: 'fas fa-globe-americas', category: 'tools', description: 'Explora el mundo', createdAt: new Date().toISOString() },
+            { id: '21', name: 'Google Arts & Culture', url: 'https://artsandculture.google.com/', icon: 'fas fa-palette', category: 'entertainment', description: 'Arte y cultura', createdAt: new Date().toISOString() },
+            { id: '22', name: 'Google Ads', url: 'https://ads.google.com/ups/routing', icon: 'fas fa-ad', category: 'tools', description: 'Publicidad de Google', createdAt: new Date().toISOString() },
+            { id: '23', name: 'Google Forms', url: 'https://docs.google.com/forms/', icon: 'fas fa-poll', category: 'productivity', description: 'Formularios de Google', createdAt: new Date().toISOString() },
+            { id: '24', name: 'Chrome Web Store', url: 'https://chrome.google.com/webstore', icon: 'fab fa-chrome', category: 'tools', description: 'Extensiones para Chrome', createdAt: new Date().toISOString() },
+            { id: '25', name: 'Google Passwords', url: 'https://passwords.google.com/', icon: 'fas fa-key', category: 'tools', description: 'Gestor de contraseñas', createdAt: new Date().toISOString() },
+            { id: '26', name: 'Google Analytics', url: 'https://analytics.google.com/analytics/web', icon: 'fas fa-chart-bar', category: 'tools', description: 'Estadísticas web', createdAt: new Date().toISOString() },
+            { id: '27', name: 'Blogger', url: 'https://www.blogger.com/', icon: 'fab fa-blogger', category: 'productivity', description: 'Crea tu blog', createdAt: new Date().toISOString() },
+            { id: '28', name: 'Google Wallet', url: 'https://wallet.google.com/', icon: 'fas fa-wallet', category: 'tools', description: 'Pagos y billetera', createdAt: new Date().toISOString() },
+            { id: '29', name: 'NotebookLM', url: 'https://notebooklm.google.com/', icon: 'fas fa-book', category: 'productivity', description: 'Notas inteligentes de Google', createdAt: new Date().toISOString() },
+            { id: '30', name: 'Google Colab', url: 'https://colab.research.google.com/', icon: 'fas fa-flask', category: 'tools', description: 'Python en la nube', createdAt: new Date().toISOString() },
+            { id: '31', name: 'Gemini', url: 'https://gemini.google.com/app?hl=es', icon: 'fas fa-gem', category: 'tools', description: 'IA de Google', createdAt: new Date().toISOString() },
+            // APIs y herramientas externas
+            { id: '32', name: 'API Audacity', url: 'https://apis.google.com/additnow/l?applicationid=112820967478&__ls=ogb&__lu=https%3A%2F%2Fwww.offidocs.com%2Fmedia%2Fsystem%2Faudacitygdrive%2Fgoogle-api-php-client%2Fcore%2Faudacitydownload.php', icon: 'fas fa-microphone', category: 'tools', description: 'API Audacity Google', createdAt: new Date().toISOString() },
+            { id: '33', name: 'API GIMP', url: 'https://apis.google.com/additnow/l?applicationid=650527036983&__ls=ogb&__lu=https%3A%2F%2Fwww.offidocs.com%2Fmedia%2Fsystem%2Fgimpgdrive%2Fgoogle-api-php-client%2Fcore%2Fgimpbase.php', icon: 'fas fa-image', category: 'tools', description: 'API GIMP Google', createdAt: new Date().toISOString() },
+            { id: '34', name: 'API Movie Studio', url: 'https://apis.google.com/additnow/l?applicationid=785803880206&__ls=ogb&__lu=https%3A%2F%2Fwww.redcoolmedia.net%2Fmedia%2Fsystem%2Fmoviestudiogdrive%2Fgoogle-api-php-client%2Fcore%2Fmoviestudiodownload.php', icon: 'fas fa-film', category: 'tools', description: 'API Movie Studio Google', createdAt: new Date().toISOString() },
+            { id: '35', name: 'API Python', url: 'https://apis.google.com/additnow/l?applicationid=807307805212&__ls=ogb&__lu=https%3A%2F%2Fthumbsdb.herokuapp.com%2Fpython%2F', icon: 'fab fa-python', category: 'tools', description: 'API Python Google', createdAt: new Date().toISOString() },
+            { id: '36', name: 'API TTS', url: 'https://apis.google.com/additnow/l?applicationid=159159627607&__ls=ogb&__lu=http%3A%2F%2Ftts.softgateon.net%2F', icon: 'fas fa-volume-up', category: 'tools', description: 'API Text-to-Speech Google', createdAt: new Date().toISOString() },
+            // Herramientas de desarrollo
+            { id: '37', name: 'Replit', url: 'https://replit.com/', icon: 'fas fa-terminal', category: 'tools', description: 'IDE online', createdAt: new Date().toISOString() },
+            { id: '38', name: 'CodePen', url: 'https://codepen.io/', icon: 'fas fa-code', category: 'tools', description: 'Editor de código online', createdAt: new Date().toISOString() },
+            { id: '39', name: 'WebSim', url: 'https://websim.com/', icon: 'fas fa-microchip', category: 'tools', description: 'Simulador web', createdAt: new Date().toISOString() },
+            // Juegos y entretenimiento
+            { id: '40', name: 'PlayHop 3D', url: 'https://playhop.com/es/tag/3d_44', icon: 'fas fa-cube', category: 'entertainment', description: 'Colección de juegos 3D', createdAt: new Date().toISOString() },
+            { id: '41', name: 'PacoGames 3D', url: 'https://www.pacogames.com/juegos-3d', icon: 'fas fa-gamepad', category: 'entertainment', description: 'Juegos 3D gratis online', createdAt: new Date().toISOString() },
+            { id: '42', name: 'Poki 3D', url: 'https://poki.com/es/3d', icon: 'fas fa-cube', category: 'entertainment', description: 'Juegos 3D en Poki', createdAt: new Date().toISOString() },
+            { id: '43', name: 'CrazyGames 3D', url: 'https://www.crazygames.com/es/e/3d', icon: 'fas fa-cube', category: 'entertainment', description: 'Juegos 3D en CrazyGames', createdAt: new Date().toISOString() },
+            { id: '44', name: 'Long Haul Trucking Simulator', url: 'https://www.minijuegos.com/juego/long-haul-trucking-simulator', icon: 'fas fa-truck', category: 'entertainment', description: 'Simulador de camiones', createdAt: new Date().toISOString() },
+            { id: '45', name: 'Official GamezFull', url: 'https://official-gamezfull.pages.dev/', icon: 'fas fa-gamepad', category: 'entertainment', description: 'Descarga juegos', createdAt: new Date().toISOString() },
+            { id: '46', name: 'GamesFull', url: 'https://gamesfull.app/categorias/requisitos/bajos', icon: 'fas fa-gamepad', category: 'entertainment', description: 'Juegos para PC de bajos requisitos', createdAt: new Date().toISOString() },
+            { id: '47', name: 'BlizzBoyGames', url: 'https://www.blizzboygames.net/', icon: 'fas fa-gamepad', category: 'entertainment', description: 'Descarga juegos gratis', createdAt: new Date().toISOString() },
+            // TV, radio y entretenimiento
+            { id: '48', name: 'Radio JFK Ibiza', url: 'https://www.radio.es/s/jfkibiza', icon: 'fas fa-broadcast-tower', category: 'entertainment', description: 'Radio online', createdAt: new Date().toISOString() },
+            { id: '49', name: 'EnPantallas', url: 'https://enpantallas.com/7jbh13hmw513', icon: 'fas fa-tv', category: 'entertainment', description: 'TV y entretenimiento', createdAt: new Date().toISOString() },
+            { id: '50', name: 'TeleGratisHD', url: 'https://links.giveawayoftheday.com/telegratishd.com/', icon: 'fas fa-tv', category: 'entertainment', description: 'TV gratis online', createdAt: new Date().toISOString() },
+            { id: '51', name: 'TV Libre Online', url: 'https://tvlibreonline.org/', icon: 'fas fa-tv', category: 'entertainment', description: 'TV libre por internet', createdAt: new Date().toISOString() },
+            { id: '52', name: 'TV Libre HD', url: 'https://www.tvlibrehd.com/', icon: 'fas fa-tv', category: 'entertainment', description: 'TV HD gratis', createdAt: new Date().toISOString() },
+            { id: '53', name: 'Pluto TV', url: 'https://pluto.tv/latam/on-demand/series/65bd42b9b65b870013b0bd02/season/1', icon: 'fas fa-tv', category: 'entertainment', description: 'TV y series gratis', createdAt: new Date().toISOString() },
+            { id: '54', name: 'CX TV en Vivo', url: 'https://www.cxtvenvivo.com/', icon: 'fas fa-tv', category: 'entertainment', description: 'TV en vivo', createdAt: new Date().toISOString() },
+            { id: '55', name: 'Canela TV', url: 'https://canela.tv/', icon: 'fas fa-tv', category: 'entertainment', description: 'TV y películas gratis', createdAt: new Date().toISOString() },
+            // Herramientas y utilidades varias
+            { id: '56', name: 'W3Schools JS', url: 'https://www.w3schools.com/js/default.asp', icon: 'fas fa-code', category: 'tools', description: 'Aprende JavaScript', createdAt: new Date().toISOString() },
+            { id: '57', name: 'ChatGPT', url: 'https://chatgpt.com/', icon: 'fas fa-robot', category: 'tools', description: 'Asistente de IA', createdAt: new Date().toISOString() },
+            { id: '58', name: 'Replit', url: 'https://replit.com/', icon: 'fas fa-terminal', category: 'tools', description: 'IDE online', createdAt: new Date().toISOString() },
+            { id: '59', name: 'CodePen', url: 'https://codepen.io/', icon: 'fas fa-code', category: 'tools', description: 'Editor de código online', createdAt: new Date().toISOString() },
+            { id: '60', name: 'WebSim', url: 'https://websim.com/', icon: 'fas fa-microchip', category: 'tools', description: 'Simulador web', createdAt: new Date().toISOString() },
+            // Apps personales
+            { id: '61', name: 'Programas Mentales', url: 'https://licteo.github.io/programas-mentales/', icon: 'fas fa-brain', category: 'productivity', description: 'Herramientas mentales y de estudio', createdAt: new Date().toISOString() },
+            { id: '62', name: 'Web Personal', url: 'https://licteo.github.io/Web-Personal-/', icon: 'fas fa-user', category: 'social', description: 'Sitio web personal', createdAt: new Date().toISOString() },
+            { id: '63', name: 'Agenda', url: 'https://licteo.github.io/Agenda/', icon: 'fas fa-calendar-alt', category: 'productivity', description: 'Organiza tus eventos y tareas', createdAt: new Date().toISOString() },
+            { id: '64', name: 'Lista de Tareas', url: 'https://licteo.github.io/lista-de-tareas-pwa/', icon: 'fas fa-tasks', category: 'productivity', description: 'Gestor de tareas PWA', createdAt: new Date().toISOString() },
+            { id: '65', name: 'Juego 3D', url: 'https://licteo.github.io/juego-3D/', icon: 'fas fa-cube', category: 'entertainment', description: 'Juego interactivo en 3D', createdAt: new Date().toISOString() },
+            { id: '66', name: 'Generador de Contraseñas', url: 'https://licteo.github.io/Generador-de-contrase-as/', icon: 'fas fa-key', category: 'tools', description: 'Crea contraseñas seguras', createdAt: new Date().toISOString() },
+            { id: '67', name: 'Astrabazaar', url: 'https://licteo.github.io/astrabazaar/', icon: 'fas fa-star', category: 'entertainment', description: 'Explora el bazar de las estrellas', createdAt: new Date().toISOString() }
         ];
     }
 
